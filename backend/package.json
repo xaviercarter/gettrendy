@@ -1,0 +1,24 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "gettrendy-backend",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "server": "nodemon server.js"
+
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xaviercarter/gettrendy.git"
+  },
+  "author": "xavier",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xaviercarter/gettrendy/issues"
+  },
+  "homepage": "https://github.com/xaviercarter/gettrendy#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
