@@ -7,6 +7,8 @@ const dbConnect = require("./config/db/dbConnect");
 const app = express();
 // database
 dbConnect();
+
+// console .env
 console.log(process.env);
 
 // server
