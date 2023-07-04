@@ -2,7 +2,8 @@ const express = require("express");
 const dotenv = require("dotenv");
 dotenv.config();
 const dbConnect = require("./config/db/dbConnect");
-const { userRegisterCtrl } = require("./controllers/users/usersCtrl");
+const userRoutes = require("./route/users/usersRoute");
+const { errorHandler, notFound } = require("./middleware/error/errorHandler");
 
 const app = express();
 
@@ -12,30 +13,20 @@ dbConnect();
 // middleware
 app.use(express.json());
 
-// custom middleware
-const logger = (req, res, next) => {
-    console.log("am a logger");
-    next();
-};
 
-// usage
-app.use(logger);
 
-// register
-app.post("/api/users/register", userRegisterCtrl);
+// users route
+app.use('/api/users', userRoutes);
 
-// login
-app.post("/api/users/login", (req, res) => {
-    res.json({ user: "User Login" });
-});
 
-// fetch all user
-app.get("/api/users", (req, res) => {
-    res.json({ user: "fetch all user" });
-});
 
 // console .env
-console.log(process.env);
+// console.log(process.env);
+
+// err handler
+app.use(notFound); // this needs to be ran first as it indicates a 404 error for path not found then will run the next error handler
+app.use(errorHandler);
+
 
 // server
 const PORT = process.env.PORT || 5000;
