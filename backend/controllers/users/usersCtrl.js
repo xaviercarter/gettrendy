@@ -155,9 +155,21 @@ const updateUserPasswordCtrl = expressAsyncHandler(async (req, res) => {
 });
 
 ////////////////////////////////////////////////////////////////
+// profile photo upload                                       //
+////////////////////////////////////////////////////////////////
+
+const profilePhotoUploadCtrl = expressAsyncHandler(async (req, res) => {
+    console.log(req.file);
+    res.json('upload');
+});
+
+
+
+////////////////////////////////////////////////////////////////
 // exports ;-)                                                //
 ////////////////////////////////////////////////////////////////
 module.exports = { 
+    profilePhotoUploadCtrl,
     userRegisterCtrl, 
     loginUserCtrl, 
     fetchUsersCtrl, 

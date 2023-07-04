@@ -1,3 +1,7 @@
+////////////////////////////////////////////////////////////////////////////
+//REQUIRES                                                                //
+////////////////////////////////////////////////////////////////////////////
+
 const express = require('express');
 const { 
     userRegisterCtrl, 
@@ -8,14 +12,29 @@ const {
     userProfileCtrl,
     updateUserCtrl,
     updateUserPasswordCtrl,
+    profilePhotoUploadCtrl,
 
 } = require('../../controllers/users/usersCtrl');
 const authMiddleware = require('../../middlewares/auth/authMiddleware');
-authMiddleware
+const { 
+    profilePhotoUpload, 
+} = require('../../middlewares/uploads/profilePhotoUpload');
 const userRoutes =  express.Router();
 
+
+////////////////////////////////////////////////////////////////////////////
+//ROUTES                                                                  //
+////////////////////////////////////////////////////////////////////////////
 userRoutes.post('/register', userRegisterCtrl);
 userRoutes.post('/login', loginUserCtrl);
+
+userRoutes.put(
+    '/profilephoto-upload', 
+    authMiddleware, 
+    profilePhotoUpload.single('image'),
+    profilePhotoUploadCtrl
+);
+
 userRoutes.get('/', authMiddleware, fetchUsersCtrl);
 userRoutes.get('/profile/:id', authMiddleware, userProfileCtrl);
 userRoutes.put('/:id', authMiddleware, updateUserCtrl); 
@@ -24,4 +43,7 @@ userRoutes.delete('/:id', deleteUsersCtrl);
 userRoutes.get('/:id', fetchUserDetailsCtrl);
 
 
+////////////////////////////////////////////////////////////////////////////
+//EXPORTS                                                                 //
+////////////////////////////////////////////////////////////////////////////
 module.exports = userRoutes; 
