@@ -27,4 +27,15 @@ const userRegisterCtrl =  expressAsyncHandler(async (req, res) => {
     }
 });
 
-module.exports = { userRegisterCtrl };
+// user login
+const loginUserCtrl = expressAsyncHandler(async (req, res) => {
+// check if user already exists
+    const user = await User.findOne({ email: req?.body?.email });
+
+    if(!user) {
+        throw new Error("login credentials not found");
+    }
+    res.json("user login");
+});
+
+module.exports = { userRegisterCtrl, loginUserCtrl };
