@@ -58,6 +58,12 @@ userSchema.pre('save', async function (next) {
     next();
 }); 
 
+// match password append our owm method on the userschema
+userSchema.methods.isPasswordMatched = async function (enteredPassword) {
+    return await bcrypt.compare(enteredPassword, this.password);
+};
+
+
 // schema into model
 const User = mongoose.model("User", userSchema);
 
