@@ -143,15 +143,15 @@ const updateUserPasswordCtrl = expressAsyncHandler(async (req, res) => {
     const { _id } = req.user;
     const { password } = req.body;
     validateMongodbID(_id);
-
     const user = await User.findById(_id);
     
     if (password) {
         user.password = password;
         const updatedUser = await user.save();
         res.json(updatedUser);
-    }
+    } else {
     res.json(user);
+    }
 });
 
 ////////////////////////////////////////////////////////////////
