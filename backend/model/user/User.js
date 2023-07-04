@@ -34,7 +34,7 @@ const userSchema = new mongoose.Schema({
         enum: ["Admin", "Guest", "Blogger"],
     },
 
-    isAccountVerified: { type: Boolean, default: false },
+    isAccountVerified: { type: Boolean, default: true },
     accountVerificationToken: String,
     accountVerificationTokenExpires: Date,
 
