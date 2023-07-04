@@ -52,6 +52,7 @@ const loginUserCtrl = expressAsyncHandler(async (req, res) => {
 
 // fetch users
 const fetchUsersCtrl = expressAsyncHandler(async (req, res) => {
+    console.log(req.headers);
     try {
         const users = await User.find({});
         res.json(users);
@@ -87,10 +88,13 @@ const fetchUserDetailsCtrl = expressAsyncHandler(async (req, res) => {
 });
 
 
+
+
+
 module.exports = { 
     userRegisterCtrl, 
     loginUserCtrl, 
     fetchUsersCtrl, 
     deleteUsersCtrl,
-    fetchUserDetailsCtrl
+    fetchUserDetailsCtrl,
 };
