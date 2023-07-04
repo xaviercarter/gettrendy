@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
 
 const userSchema = new mongoose.Schema({
     firstName: {
@@ -49,6 +50,15 @@ const userSchema = new mongoose.Schema({
     }
 );
 
+// hash password 
+userSchema.pre('save', async function (next) {
+    // hash password
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+    next();
+}); 
+
+// schema into model
 const User = mongoose.model("User", userSchema);
 
 // export the model so user can be used in other files
