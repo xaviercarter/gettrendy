@@ -1,10 +1,10 @@
 
 const expressAsyncHandler = require("express-async-handler");
+const generateToken = require("../../config/token/generateToken");
 const User = require("../../model/user/User");
 
+
 // register 
-
-
 const userRegisterCtrl =  expressAsyncHandler(async (req, res) => {
     
     // want to check if user already exists
@@ -34,7 +34,14 @@ const loginUserCtrl = expressAsyncHandler(async (req, res) => {
     const userFound = await User.findOne({ email });
 
     if (userFound && (await userFound.isPasswordMatched(password))) {
-        res.json(userFound);
+        res.json({
+            firstName: userFound?.firstName,
+            lastName: userFound?.lastName,
+            email: userFound?.email,
+            profilePhoto: userFound?.profilePhoto,
+            isAdmin: userFound?.isAdmin,
+            token: generateToken(userFound?._id),
+        });
     } else {
         res.status(401);
         throw new Error("Invalid Credentials");
