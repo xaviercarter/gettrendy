@@ -6,7 +6,8 @@ const {
     deleteUsersCtrl, 
     fetchUserDetailsCtrl,
     userProfileCtrl,
-    updateUserCtrl
+    updateUserCtrl,
+    updateUserPasswordCtrl,
 
 } = require('../../controllers/users/usersCtrl');
 const authMiddleware = require('../../middlewares/auth/authMiddleware');
@@ -18,6 +19,7 @@ userRoutes.post('/login', loginUserCtrl);
 userRoutes.get('/', authMiddleware, fetchUsersCtrl);
 userRoutes.get('/profile/:id', authMiddleware, userProfileCtrl);
 userRoutes.put('/:id', authMiddleware, updateUserCtrl); 
+userRoutes.put('/password', authMiddleware, updateUserPasswordCtrl); 
 userRoutes.delete('/:id', deleteUsersCtrl);
 userRoutes.get('/:id', fetchUserDetailsCtrl);
 

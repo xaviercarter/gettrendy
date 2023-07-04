@@ -52,6 +52,10 @@ const userSchema = new mongoose.Schema({
 
 // hash password 
 userSchema.pre('save', async function (next) {
+    // allow to make changes to the password only if the password has been modified
+    if (!this.isModified('password')) {
+        next();
+    }
     // hash password
     const salt = await bcrypt.genSalt(10);
     this.password = await bcrypt.hash(this.password, salt);
