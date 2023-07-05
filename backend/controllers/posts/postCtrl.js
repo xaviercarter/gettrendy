@@ -27,4 +27,21 @@ const imgUploaded = await cloudinaryUploadImg(localPath);
     }
 });
 
-module.exports = { createPostCtrl };
+// remove uploaded image from public folder using fs module
+
+
+////////////////////////////////////////////////////////////////////////
+//Fetch all posts                                                     //
+////////////////////////////////////////////////////////////////////////
+
+const fetchPostsCtrl = expressAsyncHandler(async (req, res) => {
+    try {
+        const posts = await Post.find({});
+        res.json(posts);
+
+    } catch (error) {}
+});
+
+
+
+module.exports = { createPostCtrl, fetchPostsCtrl };
