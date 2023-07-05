@@ -3,6 +3,7 @@ const expressAsyncHandler = require("express-async-handler");
 const generateToken = require("../../config/token/generateToken");
 const User = require("../../model/user/User");
 const validateMongodbID = require("../../utils/validateMongodbID");
+const cloudinaryUploadImg = require("../../utils/cloudinary");
 
 ////////////////////////////////////////////////////////////////
 // register                                                   //
@@ -159,9 +160,14 @@ const updateUserPasswordCtrl = expressAsyncHandler(async (req, res) => {
 ////////////////////////////////////////////////////////////////
 
 const profilePhotoUploadCtrl = expressAsyncHandler(async (req, res) => {
-    console.log(req.file);
-    res.json('upload');
+    // get the path to the image
+    const localPath = `public/images/profile/${req.file.filename}`;
+    // upload the image to cloudinary
+    const imgUploaded = await cloudinaryUploadImg(localPath);
+    console.log(imgUploaded);
+    res.json(localPath);
 });
+
 
 
 
