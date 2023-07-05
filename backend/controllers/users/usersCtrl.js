@@ -105,7 +105,7 @@ const userProfileCtrl = expressAsyncHandler(async (req, res) => {
     const { id } = req.params;
     validateMongodbID(id);
     try {
-        const myProfile = await User.findById(id); 
+        const myProfile = await User.findById(id).populate('posts'); 
         res.json(myProfile);
     } catch (error) {
         res.json(error);

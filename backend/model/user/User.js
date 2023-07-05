@@ -50,6 +50,14 @@ const userSchema = new mongoose.Schema({
     }
 );
 
+
+// method to populate created posts
+userSchema.virtual('posts', {
+    ref: 'Post',
+    foreignField: 'user',
+    localField: '_id',
+});
+
 // hash password 
 userSchema.pre('save', async function (next) {
     // allow to make changes to the password only if the password has been modified
