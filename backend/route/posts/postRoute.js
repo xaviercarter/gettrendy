@@ -17,8 +17,8 @@ const postRoute = express.Router();
 postRoute.post(
     '/', 
     authMiddleware, 
-    photoUpload.single('image'), 
-    postImgResize,
+    // photoUpload.single('image'), 
+    // postImgResize,
     createPostCtrl,
 );
 
