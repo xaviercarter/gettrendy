@@ -22,10 +22,10 @@ export const createpostAction = createAsyncThunk(
         };
         try {
             // http call , destructure response coming from the await
-            const { data } = await axios.post(`${baseUrl}/api/posts`, post, config);
+            const  data  = await axios.post(`${baseUrl}/api/posts`, post, config);
             
             // dispatch action
-            dispatch(resetPost());
+            dispatch(data);
             return data;
         } catch (error) {
             if (!error?.response) throw error;

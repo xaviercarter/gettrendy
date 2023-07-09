@@ -18,7 +18,8 @@ useEffect(() => {
 // select post from store
 const post = useSelector(state => state?.post);
 
-const {postLists, loading, appErr, serverErr } = post; 
+const { postList, loading, appErr, serverErr } = post; 
+// console.log({postList. post})
 
 
   return (
@@ -70,14 +71,14 @@ const {postLists, loading, appErr, serverErr } = post;
               <div class="w-full lg:w-3/4 px-3">
   {/* Post goes here */}
 
-  {loading ? (
+                {loading ? (
                   <h1>Loading...</h1>
                 ) : appErr || serverErr ? (
                   <h1>Err</h1>
-                ) : postLists?.lenght <= 0 ? (
+                ) : postList?.length <= 0 ? (
                   <h1>No Post Found</h1>
                 ) : (
-                  postLists?.map(post => (
+                  postList?.map(post => (
                     <div class="flex flex-wrap bg-gray-900 -mx-3  lg:mb-6">
                       <div class="mb-10  w-full lg:w-1/4 px-3">
                         <Link>
