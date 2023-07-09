@@ -17,14 +17,16 @@ const postRoute = express.Router();
 postRoute.post(
     '/', 
     authMiddleware, 
-    // photoUpload.single('image'), 
-    // postImgResize,
+    photoUpload.single('image'), 
+    postImgResize,
     createPostCtrl,
+    updatePostCtrl,
+    deletePostCtrl,
 );
 
 postRoute.get('/', fetchPostsCtrl);
 postRoute.get('/:id', fetchPostCtrl);
-postRoute.put('/:id', authMiddleware, updatePostCtrl);
+postRoute.put('update/:id', authMiddleware, updatePostCtrl);
 postRoute.delete('/:id', authMiddleware, deletePostCtrl);
 
 
