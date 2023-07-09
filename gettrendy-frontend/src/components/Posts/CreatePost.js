@@ -1,5 +1,6 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { Redirect } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { createpostAction } from "../../redux/slices/posts/postSlices";
 
@@ -11,6 +12,10 @@ const formSchema = Yup.object({
 
 export default function CreatePost() {
   const dispatch = useDispatch();
+
+  // select store data
+  const post = useSelector(state => state?.post);
+  const { isCreated, loading, appErr, serverErr } = post;
   // formik
   const formik = useFormik({
     initialValues: {
@@ -23,7 +28,10 @@ export default function CreatePost() {
     },
     validationSchema: formSchema,
   });
-
+//////////////////////////////////////////////////////////////////
+// redirect if post created                                     //
+//////////////////////////////////////////////////////////////////
+if(isCreated) return <Redirect to="/posts" />;
 
 
   return (
@@ -89,12 +97,21 @@ export default function CreatePost() {
               </div>
               <div>
                 {/* Submit btn */}
+                {loading ? (
+                <button
+                  disabled
+                  className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-purple-300 hover:bg-purple-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  >
+                    Loading...
+                </button>
+                ) : (
                 <button
                   type="submit"
                   className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-purple-300 hover:bg-purple-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
                   Post
                 </button>
+                )}
               </div>
             </form>
           </div>
