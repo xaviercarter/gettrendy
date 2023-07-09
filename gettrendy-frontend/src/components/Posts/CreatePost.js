@@ -74,7 +74,7 @@ if(isCreated) return <Redirect to="/posts" />;
                 {/* Err msg */}
                 <div className="text-red-500">{formik?.touched?.title}</div>
               </div>
-              ...
+              
               <div>
                 <label
                   htmlFor="password"

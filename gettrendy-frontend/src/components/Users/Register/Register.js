@@ -36,7 +36,6 @@ const Register = () => {
     onSubmit: values => {
 
       dispatch(registerUserAction(values));
-      console.log(values);
     },
     validationSchema: formSchema,
   });
@@ -50,7 +49,6 @@ const Register = () => {
     return <Redirect to="/profile" />;
   }
 
-  console.log(registered);
   return (
     <section className="relative py-20 2xl:py-40 bg-black overflow-hidden">
       <div className="relative container px-4 mx-auto">
