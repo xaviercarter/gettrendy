@@ -133,12 +133,12 @@ export default function PostsList() {
                           </div>
                           <div className='ml-3'>
                             <p className='text-sm font-medium text-gray-900'>
-                              <Link className='text-yellow-400 hover:underline '>
+                              <Link className='text-gray-400 hover:underline '>
                                 {post?.user?.firstName} {post?.user?.lastName}
                               </Link>
                               <Link
                                 to={`/post-details/${post?._id}`}
-                                className='text-white bg-purple-300 rounded-lg py-2 px-4 mb-2 md: -mb-10 font-bold'
+                                className='text-gray-400 rounded-lg py-2 px-4 mb-2 md: -mb-10 font-bold'
                               >
                                 View Post
                               </Link>
