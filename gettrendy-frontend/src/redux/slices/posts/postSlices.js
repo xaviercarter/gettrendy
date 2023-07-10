@@ -1,10 +1,10 @@
-import { createAsyncThunk, createSlice, createAction } from '@reduxjs/toolkit';
-import axios from 'axios';
-import baseUrl from '../../../utils/baseURL';
+import { createAsyncThunk, createSlice, createAction } from "@reduxjs/toolkit";
+import axios from "axios";
+import baseUrl from "../../../utils/baseURL";
 
 import { useRedirect } from "react-router-dom";
 
-const resetPost = createAction('post/resetEdit');
+const resetPost = createAction("post/resetEdit");
 
 ////////////////////////////////////////////////////////////////////////////////
 // create post action                                                         //
@@ -12,7 +12,6 @@ const resetPost = createAction('post/resetEdit');
 export const createpostAction = createAsyncThunk(
   "post/created",
   async (post, { rejectWithValue, getState, dispatch }) => {
-
     // get user token
     const user = getState()?.users;
     const { userAuth } = user;
@@ -35,7 +34,6 @@ export const createpostAction = createAsyncThunk(
   }
 );
 
-
 export const updatePostAction = createAsyncThunk(
   "post/update",
   async (postData, { rejectWithValue, getState, dispatch }) => {
@@ -51,29 +49,31 @@ export const updatePostAction = createAsyncThunk(
     try {
       // http call , destructure response coming from the await
 
-      const { data } = await axios.post(`${baseUrl}/api/post/update/${postData._id}`, postData,config);
+      const { data } = await axios.post(
+        `${baseUrl}/api/post/update/${postData._id}`,
+        postData,
+        config
+      );
 
       // // dispatch action
       dispatch(resetPost());
       // return data;
     } catch (error) {
-      console.log({error})}
+      console.log({ error });
+    }
     //   if (!error?.response) throw error;
     //   return rejectWithValue(error?.response?.data);
     // }
   }
 );
 
-
 ////////////////////////////////////////////////////////////////////////////////
 // delete single posts                                                            //
 ////////////////////////////////////////////////////////////////////////////////
 
-
 export const deletePostAction = createAsyncThunk(
   "post/delete",
   async (id, { rejectWithValue, getState, dispatch }) => {
-
     // get user token
     const user = getState()?.users;
     const { userAuth } = user;
@@ -85,20 +85,23 @@ export const deletePostAction = createAsyncThunk(
     try {
       // http call , destructure response coming from the await
 
-      const { data } = await axios.delete(`${baseUrl}/api/post/delete/${id}`, id, config);
+      const { data } = await axios.delete(
+        `${baseUrl}/api/post/delete/${id}`,
+        id,
+        config
+      );
 
       // // dispatch action
       dispatch(resetPost());
       // return data;
     } catch (error) {
-      console.log({error})}
+      console.log({ error });
+    }
     //   if (!error?.response) throw error;
     //   return rejectWithValue(error?.response?.data);
     // }
   }
 );
-
-
 
 ////////////////////////////////////////////////////////////////////////////////
 // fetch all posts                                                            //
@@ -123,10 +126,10 @@ export const fetchPostsAction = createAsyncThunk(
 ////////////////////////////////////////////////////////////////////////////////
 
 const postSlice = createSlice({
-  name: 'post',
+  name: "post",
   initialState: {},
-  extraReducers: builder => {
-    // create post 
+  extraReducers: (builder) => {
+    // create post
     builder.addCase(createpostAction.pending, (state, action) => {
       state.loading = true;
     });
@@ -147,7 +150,7 @@ const postSlice = createSlice({
       state.serverErr = action?.error?.message;
     });
 
-    // update single post 
+    // update single post
     builder.addCase(updatePostAction.pending, (state, action) => {
       state.loading = true;
     });
@@ -163,9 +166,9 @@ const postSlice = createSlice({
       state.appErr = action?.payload?.message;
       state.serverErr = action?.error?.message;
     });
-    
-     // fetch all posts
-     builder.addCase(fetchPostsAction.pending, (state, action) => {
+
+    // fetch all posts
+    builder.addCase(fetchPostsAction.pending, (state, action) => {
       state.loading = true;
     });
 
@@ -181,7 +184,7 @@ const postSlice = createSlice({
       state.serverErr = action?.error?.message;
     });
 
-    // delete single post 
+    // delete single post
     builder.addCase(deletePostAction.pending, (state, action) => {
       state.loading = true;
     });
@@ -200,7 +203,6 @@ const postSlice = createSlice({
     });
   },
 });
-
 
 ////////////////////////////////////////////////////////////////////////////////
 // export                                                                     //
